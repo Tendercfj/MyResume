@@ -31,6 +31,18 @@
     <section class="home-skill">
       <mySkill :skillText="data.skillText" :skill="data.skill" />
     </section>
+    <section class="home-experience">
+      <myExperience
+        :experience="data.experience"
+        :experienceText="data.experienceText"
+      />
+    </section>
+    <section class="home-project">
+      <myProject :project="data.project" />
+    </section>
+    <section class="home-touch">
+      <myTouch :touch="data.touch" :inf="data.inf" />
+    </section>
   </div>
 </template>
 
@@ -41,6 +53,9 @@ import { useResumeStore } from "../store/resumeStore";
 import myNav from "../components/nav/myNav.vue";
 import aboutMe from "../components/about/aboutMe.vue";
 import mySkill from "../components/skill/mySkill.vue";
+import myExperience from "../components/experience/myExperience.vue";
+import myProject from "../components/project/myProject.vue";
+import myTouch from "../components/touch/myTouch.vue";
 import data from "../json/json";
 const store = useResumeStore();
 const imgs = ref(store.imgs);

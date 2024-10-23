@@ -28,15 +28,15 @@ export const useResumeStore = defineStore("resume", () => {
   const aboutMeList = [
     {
       src: svg1,
-      title: "24岁",
+      title: "23岁",
     },
     {
       src: svg2,
-      title: "大专",
+      title: "硕士",
     },
     {
       src: svg3,
-      title: "北京",
+      title: "杭州",
     },
     {
       src: svg4,

@@ -1,0 +1,109 @@
+<template>
+  <div class="shell h-full w-full flex">
+    <div
+      v-for="(item, index) in skillItem"
+      :key="index"
+      :class="`box img${index + 1}`"
+    >
+      <div class="text">
+        <header>
+          <span class="title">{{ item.title }}</span>
+        </header>
+        <p>
+          {{ item.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const props = defineProps({
+  skillItem: {
+    type: Array,
+  },
+});
+const skillItem = ref(props.skillItem);
+</script>
+
+<style scoped>
+body {
+  overflow: hidden;
+}
+.box {
+  flex: 1;
+  min-width: 0;
+  box-shadow: -20px 0 20px 5px rgba(255, 255, 255, 0.7);
+  transition: flex 0.8s;
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  place-items: center;
+  border: 10px solid #fff;
+}
+
+.box:hover {
+  flex: 2;
+}
+
+.box:hover .text {
+  animation: appear 0.8s forwards 0.3s;
+}
+.img1 {
+  background-image: url("../../../assets/three.webp");
+}
+
+.img2 {
+  background-image: url("../../../assets/vue.png");
+}
+
+.img3 {
+  background-image: url("../../../assets/react.svg");
+}
+
+.img4 {
+  background-image: url("../../../assets/git.png");
+}
+.text {
+  padding: 45px 75px;
+  opacity: 0;
+  color: rgb(255, 255, 255);
+  height: 380px;
+  width: 450px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+header {
+  height: 73px;
+  font-size: 50px;
+  font-family: 华文中宋;
+  line-height: 50px;
+  font-weight: bold;
+  border-bottom: 2px solid white;
+}
+
+.title {
+  display: inline-block;
+  height: 65px;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  text-decoration-thickness: 4px;
+}
+
+.text p {
+  margin: 30px 0;
+  font-size: 15px;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+</style>

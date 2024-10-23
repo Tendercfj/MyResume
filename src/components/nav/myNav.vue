@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps, defineEmits, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 const props = defineProps({
   navList: {
     type: Array,

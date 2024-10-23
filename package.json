@@ -11,6 +11,7 @@
   "dependencies": {
     "pinia": "^2.2.4",
     "swiper": "^11.1.14",
+    "typed.js": "^2.1.0",
     "vue": "^3.5.10",
     "vue-router": "^4.4.5"
   },

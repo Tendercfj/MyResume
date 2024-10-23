@@ -19,19 +19,24 @@
     <div
       class="swiperText absolute top-[45%] left-0 w-full -translate-y-1/2 m-auto"
     >
-      <h2 class="text-white text-5xl text-center">我叫{{ props.name }}</h2>
-      <p class="text-white text-[18px] text-center">
-        前端开发工程师一枚,{{
-          props.year
-        }}年开发经验的前端，乐于尝试新技术，学习能力强。
-      </p>
+      <h2
+        class="swiper-text text-white text-5xl text-center"
+        ref="swiperName"
+      ></h2>
+      <p
+        class="text-white text-[18px] text-center m-2"
+        ref="swiperDescription"
+      ></p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, defineProps } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
+import Typed from "typed.js";
 const showIndex = ref(0);
+const swiperName = ref(null);
+const swiperDescription = ref(null);
 const next = () => {
   if (showIndex.value === props.imgs.length - 1) {
     showIndex.value = 0;
@@ -72,6 +77,8 @@ const props = defineProps({
   },
 });
 let timer = null;
+let typedName = null;
+let typedDescription = null;
 const delay = () => {
   return props.delay;
 };
@@ -79,9 +86,31 @@ onMounted(() => {
   timer = setInterval(() => {
     next();
   }, delay());
+  typedName = new Typed(swiperName.value, {
+    strings: [`我叫${props.name}`], //文本
+    typeSpeed: 100,
+    backSpeed: 100,
+    loop: false,
+  });
+  typedDescription = new Typed(swiperDescription.value, {
+    strings: [
+      `前端开发工程师一枚,${props.year}年开发经验的前端，乐于尝试新技术，学习能力强。`,
+    ], //文本
+    typeSpeed: 100,
+    backSpeed: 100,
+    loop: false,
+  });
 });
 onUnmounted(() => {
   clearInterval(timer);
+  if (typedName) {
+    typedName.destroy();
+    typedName = null;
+  }
+  if (typedDescription) {
+    typedDescription.destroy();
+    typedDescription = null;
+  }
 });
 </script>
 

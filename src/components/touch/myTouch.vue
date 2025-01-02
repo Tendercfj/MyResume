@@ -37,7 +37,7 @@ const props = defineProps({
 });
 //TODO: github
 const handleGithub = () => {
-  window.location.href = "https://github.com/Tendercfj/myResume";
+  window.location.href = "https://github.com/Tendercfj/MyResume.git";
 };
 </script>
 

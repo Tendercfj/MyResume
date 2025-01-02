@@ -9,9 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
+    "axios": "^1.7.7",
     "pinia": "^2.2.4",
     "swiper": "^11.1.14",
     "typed.js": "^2.1.0",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.5.10",
     "vue-router": "^4.4.5"
   },

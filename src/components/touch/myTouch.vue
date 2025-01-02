@@ -7,10 +7,15 @@
           {{ item }}
         </li>
       </ul>
-      <p v-for="(item, index) in props.inf" :key="index">
-        {{ item }}
-      </p>
-      <p class="github-link" @click="handleGithub">Resume - GiuHub</p>
+      <div class="call flex flex-col items-center justify-center gap-1">
+        <p v-for="(item, index) in props.inf" :key="index">
+          {{ item }}
+        </p>
+        <p v-for="(item, index) in props.phone" :key="index">
+          {{ item }}
+        </p>
+        <p class="github-link" @click="handleGithub">Resume - GiuHub</p>
+      </div>
     </div>
   </div>
 </template>
@@ -24,6 +29,9 @@ const props = defineProps({
     type: Array,
   },
   inf: {
+    type: Array,
+  },
+  phone: {
     type: Array,
   },
 });

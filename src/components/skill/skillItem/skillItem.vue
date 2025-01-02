@@ -52,19 +52,19 @@ body {
   animation: appear 0.8s forwards 0.3s;
 }
 .img1 {
-  background-image: url("../../../assets/three.webp");
+  background-image: url("../../../assets/svg/three.svg");
 }
 
 .img2 {
-  background-image: url("../../../assets/vue.png");
+  background-image: url("../../../assets/svg/vue.svg");
 }
 
 .img3 {
-  background-image: url("../../../assets/react.svg");
+  background-image: url("../../../assets/svg/react.svg");
 }
 
 .img4 {
-  background-image: url("../../../assets/git.png");
+  background-image: url("../../../assets/svg/git.svg");
 }
 .text {
   padding: 45px 75px;

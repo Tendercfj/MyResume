@@ -94,7 +94,7 @@ onMounted(() => {
   });
   typedDescription = new Typed(swiperDescription.value, {
     strings: [
-      `前端开发工程师一枚,${props.year}年开发经验的前端，乐于尝试新技术，学习能力强。`,
+      `前端开发工程师一枚,${props.year}年实习经验的前端实习生，乐于尝试新技术，学习能力强。`,
     ], //文本
     typeSpeed: 100,
     backSpeed: 100,

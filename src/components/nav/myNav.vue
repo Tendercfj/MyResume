@@ -65,6 +65,7 @@ const props = defineProps({
 });
 const emit = defineEmits(["_click", "scroll"]);
 const setColor = (index) => {
+  // console.log(index);
   num.value = index;
   emit("_click", num.value);
 };

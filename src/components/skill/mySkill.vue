@@ -10,9 +10,9 @@
       <div class="skillItem h-[500px] m-4">
         <skillItem :skillItem="data.skillItem" />
       </div>
-      <ul class="w-full flex justify-around items-center flex-wrap my-4">
+      <ul class="w-full flex justify-around items-center flex-wrap mt-4">
         <li
-          class="w-[33%] h-[30px] pb-2 flex-shrink-0 text-[19px] leading-6 text-[#5b4c5c] font-bold"
+          class="w-[33%] h-[30px] pb-2 flex-shrink-0 text-[19px] leading-6 text-[#5b4c5c] font-bold my-2"
           v-for="(item, index) in props.skill"
           :key="index"
         >

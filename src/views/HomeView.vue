@@ -68,7 +68,7 @@ const scroll = (value) => {
   show.value = value;
 };
 const onClick = (value) => {
-  console.log(value);
+  // console.log(value);
   const course = document.querySelectorAll("section");
   course[value].scrollIntoView({
     behavior: "smooth",

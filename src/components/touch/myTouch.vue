@@ -10,7 +10,7 @@
       <p v-for="(item, index) in props.inf" :key="index">
         {{ item }}
       </p>
-      <p class="github-link" @click="handleGithub">GiuHub地址</p>
+      <p class="github-link" @click="handleGithub">Resume - GiuHub</p>
     </div>
   </div>
 </template>

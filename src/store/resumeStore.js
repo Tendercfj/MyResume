@@ -17,15 +17,15 @@ export const useResumeStore = defineStore("resume", () => {
   const imgs = [{ src: img1 }, { src: img2 }, { src: img3 }, { src: img4 }];
   const name = ref("Tender");
   const year = ref("1");
-  const navList = [
+  const navList = ref([
     { text: "首页", id: "#home" },
     { text: "关于我", id: "aboutme" },
     { text: "技能", id: "skill" },
     { text: "经历", id: "experience" },
     { text: "项目", id: "project" },
     { text: "联系我", id: "touch" },
-  ];
-  const aboutMeList = [
+  ]);
+  const aboutMeList = ref([
     {
       src: svg1,
       title: "23岁",
@@ -42,7 +42,7 @@ export const useResumeStore = defineStore("resume", () => {
       src: svg4,
       title: "寻找机遇",
     },
-  ];
+  ]);
   const doubleCount = computed(() => count.value * 2);
   function increment() {
     count.value++;

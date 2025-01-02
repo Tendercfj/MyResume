@@ -5,7 +5,7 @@
       :key="index"
       :class="`box img${index + 1}`"
     >
-      <div class="text">
+      <div class="text flex flex-col justify-center items-center">
         <header>
           <span class="title">{{ item.title }}</span>
         </header>
@@ -87,9 +87,9 @@ header {
 .title {
   display: inline-block;
   height: 65px;
-  text-decoration: underline;
+  /* text-decoration: underline;
   text-underline-offset: 10px;
-  text-decoration-thickness: 4px;
+  text-decoration-thickness: 4px; */
 }
 
 .text p {

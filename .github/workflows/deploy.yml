@@ -1,0 +1,21 @@
+name: Deploy to GitHub Pages
+
+on: push
+
+permissions:
+  contents: write
+
+jobs:
+  npm-build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install
+          npm run build
+      - name: Deploy to GitHub Pages
+        uses: actions/checkout@v4
+        with:
+          branch: gh-pages
+          folder: build

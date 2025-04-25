@@ -5,6 +5,7 @@ import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "./",
   plugins: [
     vue(),
     createSvgIconsPlugin({
@@ -15,7 +16,7 @@ export default defineConfig({
       customDomId: "__svg__icons__dom__",
     }),
   ],
-  reslove: {
+  resolve: {
     alias: {
       "@": "/src",
     },

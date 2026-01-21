@@ -125,5 +125,16 @@ onUnmounted(() => {
 img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media screen and (max-width: 768px) {
+  .swiper-wrapper {
+    height: 65vh !important;
+  }
+  .swiperText {
+    top: 50%;
+  }
 }
 </style>

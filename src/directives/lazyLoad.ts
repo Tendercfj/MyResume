@@ -1,4 +1,6 @@
-export const lazyLoad = {
+import type { Directive } from "vue";
+
+export const lazyLoad: Directive<HTMLElement, void> = {
   mounted(el) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -13,3 +15,4 @@ export const lazyLoad = {
     observer.observe(el);
   },
 };
+

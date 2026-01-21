@@ -23,43 +23,40 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 
-const props = defineProps({
-  navList: {
-    type: Array,
-    required: true,
-    default: () => [],
-  },
-  Iwidth: {
-    type: [String, Number],
-    required: true,
-    default: 50,
-  },
-  Iheight: {
-    type: Number,
-    required: true,
-    default: 50,
-  },
-  Ibackground: {
-    type: String,
-    required: true,
-    default: "#fff",
-  },
-  IfontSize: {
-    type: Number,
-    required: true,
-    default: 12,
-  },
-});
+type NavItem = {
+  text: string;
+  id: string;
+};
 
-const emit = defineEmits(["_click", "scroll"]);
+const props = withDefaults(
+  defineProps<{
+    navList: NavItem[];
+    Iwidth?: string | number;
+    Iheight?: number;
+    Ibackground?: string;
+    IfontSize?: number;
+  }>(),
+  {
+    navList: () => [],
+    Iwidth: 50,
+    Iheight: 50,
+    Ibackground: "#fff",
+    IfontSize: 12,
+  },
+);
+
+const emit = defineEmits<{
+  (e: "_click", payload: { index: number; id: string }): void;
+  (e: "scroll", value: boolean): void;
+}>();
 const activeIndex = ref(0);
 const show = ref(false);
-const nav = ref(null);
+const nav = ref<HTMLElement | null>(null);
 
-const handleClick = (index, id) => {
+const handleClick = (index: number, id: string) => {
   activeIndex.value = index;
   emit("_click", { index, id });
 };
@@ -76,7 +73,7 @@ const handleScroll = () => {
 
 // 更新当前活动的导航项
 const updateActiveSection = () => {
-  const sections = document.querySelectorAll("section[id]");
+  const sections = document.querySelectorAll<HTMLElement>("section[id]");
   const scrollPosition = window.scrollY;
 
   sections.forEach((section, index) => {

@@ -59,16 +59,32 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import commonTitle from "../title/commonTitle.vue";
 const title = ref("项目经历");
-const props = defineProps({
-  project: {
-    type: Array,
-    default: () => [],
-  },
-});
+type ProjectItem = {
+  beginTime?: string;
+  endTime?: string;
+  proName?: string;
+  period?: string;
+  describe?: string;
+  science?: string[];
+};
+
+type ProjectGroup = {
+  name: string;
+  list: ProjectItem[];
+};
+
+const props = withDefaults(
+  defineProps<{
+    project?: ProjectGroup[];
+  }>(),
+  {
+    project: () => [],
+  }
+);
 </script>
 
 <style scoped>

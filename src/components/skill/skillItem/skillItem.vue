@@ -17,15 +17,20 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 
-const props = defineProps({
-  skillItem: {
-    type: Array,
-  },
-});
-const skillItem = ref(props.skillItem);
+type SkillItem = {
+  title: string;
+  description: string;
+  backgroundImage?: string;
+};
+
+const props = defineProps<{
+  skillItem?: SkillItem[];
+}>();
+
+const skillItem = computed(() => props.skillItem ?? []);
 </script>
 
 <style scoped>

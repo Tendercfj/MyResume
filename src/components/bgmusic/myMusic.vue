@@ -9,16 +9,16 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import SvgIcon from "../SvgIcon.vue";
 import { ref } from "vue";
 
-const audio = ref();
-
+const audio = ref<HTMLAudioElement | null>(null);
 
 const toggleMusic = () => {
+  if (!audio.value) return;
   if (audio.value.paused) {
-    audio.value.play();
+    void audio.value.play();
   } else {
     audio.value.pause();
   }

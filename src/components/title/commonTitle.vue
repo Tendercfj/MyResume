@@ -6,12 +6,10 @@
   </h3>
 </template>
 
-<script setup>
-const props = defineProps({
-  title: {
-    type: String,
-  },
-});
+<script setup lang="ts">
+const props = defineProps<{
+  title?: string;
+}>();
 </script>
 
 <style lang="scss" scoped></style>

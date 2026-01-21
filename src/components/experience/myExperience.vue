@@ -39,18 +39,28 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import commonTitle from "../title/commonTitle.vue";
 const title = ref("经历");
-const props = defineProps({
-  experience: {
-    type: Array,
-  },
-  experienceText: {
-    type: String,
-  },
-});
+type ExperienceItem = {
+  company: string;
+  job: string;
+  reap: string;
+  beginTime: string;
+  endTime: string;
+};
+
+const props = withDefaults(
+  defineProps<{
+    experience?: ExperienceItem[];
+    experienceText?: string;
+  }>(),
+  {
+    experience: () => [],
+    experienceText: "",
+  }
+);
 </script>
 
 <style scoped>

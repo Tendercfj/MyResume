@@ -31,12 +31,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import Typed from "typed.js";
 const showIndex = ref(0);
-const swiperName = ref(null);
-const swiperDescription = ref(null);
+const swiperName = ref<HTMLElement | null>(null);
+const swiperDescription = ref<HTMLElement | null>(null);
 const next = () => {
   if (showIndex.value === props.imgs.length - 1) {
     showIndex.value = 0;
@@ -44,48 +44,39 @@ const next = () => {
     showIndex.value++;
   }
 };
-const props = defineProps({
-  imgs: {
-    type: Array,
-    required: true,
-  },
-  name: {
-    type: String,
-    default: "",
-  },
-  year: {
-    type: String,
-    default: "",
-  },
-  imgWidth: {
-    type: Number,
-    default: () => {
-      return 100;
-    },
-  },
-  imgHeight: {
-    type: Number,
-    default: () => {
-      return 100;
-    },
-  },
-  delay: {
-    type: Number,
-    default: () => {
-      return 2000;
-    },
-  },
-});
-let timer = null;
-let typedName = null;
-let typedDescription = null;
+type SwiperImage = {
+  src: string;
+};
+
+const props = withDefaults(
+  defineProps<{
+    imgs: SwiperImage[];
+    name?: string;
+    year?: string;
+    imgWidth?: number;
+    imgHeight?: number;
+    delay?: number;
+  }>(),
+  {
+    name: "",
+    year: "",
+    imgWidth: 100,
+    imgHeight: 100,
+    delay: 2000,
+  }
+);
+
+let timer: number | undefined;
+let typedName: any = null;
+let typedDescription: any = null;
 const delay = () => {
   return props.delay;
 };
 onMounted(() => {
-  timer = setInterval(() => {
+  timer = window.setInterval(() => {
     next();
   }, delay());
+  if (!swiperName.value || !swiperDescription.value) return;
   typedName = new Typed(swiperName.value, {
     strings: [`我叫${props.name}`], //文本
     typeSpeed: 100,
@@ -102,7 +93,7 @@ onMounted(() => {
   });
 });
 onUnmounted(() => {
-  clearInterval(timer);
+  if (timer) window.clearInterval(timer);
   if (typedName) {
     typedName.destroy();
     typedName = null;

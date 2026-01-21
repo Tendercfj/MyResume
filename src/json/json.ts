@@ -1,4 +1,45 @@
-export default {
+type SkillItem = {
+  title: string;
+  description: string;
+  backgroundImage: string;
+};
+
+type ExperienceItem = {
+  company: string;
+  job: string;
+  reap: string;
+  beginTime: string;
+  endTime: string;
+};
+
+type ProjectItem = {
+  beginTime?: string;
+  endTime?: string;
+  proName: string;
+  period?: string;
+  describe?: string;
+  science?: string[];
+};
+
+type ProjectGroup = {
+  name: string;
+  list: ProjectItem[];
+};
+
+export type ResumeData = {
+  aboutme: string[];
+  skillText: string;
+  skill: string[];
+  skillItem: SkillItem[];
+  experienceText: string;
+  experience: ExperienceItem[];
+  project: ProjectGroup[];
+  touch: string[];
+  inf: string[];
+  phone: string[];
+};
+
+const data: ResumeData = {
   aboutme: [
     "我是来自杭州师范大学软件工程的硕士生，曾在杭州宇神五号（ATLASV）实习半年。",
     "有着坚实的前端开发基础，并且一直保持对新技术的学习热情。熟练使用HTML5、CSS3以及JavaScript；对流行的前端开发框架，比如vue有实际开发项目；能熟练使用前端开发工具，比如Postman、TailwindCSS和scss等等；自学习了HTML,CSS3,Javascript,Vue与React，但更加喜欢轻巧、高性能、可组件化的MVVM框架Vue.js，并在实际的开发项目中使用。",
@@ -267,3 +308,5 @@ export default {
   inf: ["email: 1805150751@qq.com"],
   phone: ["phone: 17384340081"],
 };
+
+export default data;

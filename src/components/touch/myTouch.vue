@@ -20,21 +20,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import commonTitle from "../title/commonTitle.vue";
 const title = ref("联系我");
-const props = defineProps({
-  touch: {
-    type: Array,
-  },
-  inf: {
-    type: Array,
-  },
-  phone: {
-    type: Array,
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    touch?: string[];
+    inf?: string[];
+    phone?: string[];
+  }>(),
+  {
+    touch: () => [],
+    inf: () => [],
+    phone: () => [],
+  }
+);
 //TODO: github
 const handleGithub = () => {
   window.location.href = "https://github.com/Tendercfj/MyResume.git";

@@ -34,29 +34,27 @@
   </div>
 </template>
 
-<script setup>
-// import { defineProps } from "vue";
+<script setup lang="ts">
 import { ref } from "vue";
 import commonTitle from "../title/commonTitle.vue";
 const title = ref("关于我");
-const props = defineProps({
-  show: {
-    type: Boolean,
-    default: false,
-  },
-  aboutMeList: {
-    type: Array,
-    default: () => {
-      return [];
-    },
-  },
-  aboutMeText: {
-    type: Array,
-    default: () => {
-      return [];
-    },
-  },
-});
+type AboutMeItem = {
+  src: string;
+  title: string;
+};
+
+const props = withDefaults(
+  defineProps<{
+    show?: boolean;
+    aboutMeList?: AboutMeItem[];
+    aboutMeText?: string[];
+  }>(),
+  {
+    show: false,
+    aboutMeList: () => [],
+    aboutMeText: () => [],
+  }
+);
 </script>
 
 <style scoped></style>

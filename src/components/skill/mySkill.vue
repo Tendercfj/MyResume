@@ -23,23 +23,22 @@
   </div>
 </template>
 
-<script setup>
-// import { defineProps } from "vue";
+<script setup lang="ts">
 import skillItem from "./skillItem/skillItem.vue";
 import commonTitle from "../title/commonTitle.vue";
 import data from "../../json/json";
 import { ref } from "vue";
 const title = ref("技能 - 个人优势");
-const props = defineProps({
-  skill: {
-    type: Array,
-    default: () => [],
-  },
-  skillText: {
-    type: String,
-    default: "",
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    skill?: string[];
+    skillText?: string;
+  }>(),
+  {
+    skill: () => [],
+    skillText: "",
+  }
+);
 </script>
 
 <style lang="scss" scoped></style>

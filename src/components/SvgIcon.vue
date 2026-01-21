@@ -13,7 +13,7 @@ path: './src/assets/svg/dir-icon1.svg',
   </svg>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, computed } from "vue";
 
 // 定义 SvgIcon 组件

@@ -48,7 +48,7 @@ export const useResumeStore = defineStore("resume", () => {
   const aboutMeList: AboutMeItem[] = [
     {
       src: svg1,
-      title: "23岁",
+      title: "25岁",
     },
     {
       src: svg2,

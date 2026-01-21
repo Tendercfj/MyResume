@@ -12,4 +12,3 @@ app.use(createPinia());
 app.use(router);
 app.directive("lazy-load", lazyLoad);
 app.mount("#app");
-

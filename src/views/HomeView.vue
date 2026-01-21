@@ -83,9 +83,7 @@ const sections = reactive<Section[]>([
     id: "touch",
     component: myTouch,
     props: {
-      touch: data.touch,
-      inf: data.inf,
-      phone: data.phone,
+      contact: data.contact,
     },
   },
 ]);
@@ -111,7 +109,7 @@ const navProps = computed(() => ({
   })),
   Iwidth: 100,
   Iheight: 60,
-  Ibackground: "#fff",
+  Ibackground: "rgb(var(--surface-2))",
   IfontSize: 18,
 }));
 
@@ -143,7 +141,7 @@ onMounted(() => {
 
 <style scoped>
 .home {
-  min-width: 1337px;
+  width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -158,7 +156,7 @@ onMounted(() => {
 
 @media screen and (max-width: 768px) {
   .home {
-    min-width: 100%;
+    width: 100%;
   }
 }
 </style>

@@ -1,40 +1,45 @@
 <template>
-  <div class="experience w-full bg-[#f3f2f3] block">
-    <div class="content w-[80%] pt-[90px] px-[15px] mx-auto text-center">
+  <div class="experience w-full bg-surface block">
+    <div
+      class="content w-full max-w-[1100px] pt-14 md:pt-16 px-4 sm:px-6 mx-auto text-center"
+    >
       <commonTitle :title="title" />
       <p
-        class="max-w-[1100px] my-0 mx-auto text-[16px] leading-[27px] font-[400] text-[#897f8a] pt-[26px] pb-[45px]"
+        class="max-w-[1100px] my-0 mx-auto text-[16px] leading-[27px] font-[400] text-text-subtle pt-[26px] pb-8"
       >
         {{ props.experienceText }}
       </p>
     </div>
-    <div
-      class="conbox w-full flex justify-center items-center"
-      v-for="(item, index) in props.experience"
-      :key="index.id"
-    >
-      <div class="timebox w-[16.66666667%] flex justify-center items-center">
-        <span class="begin bg-[#ef7674]">{{ item.beginTime }}</span>
-        <span class="end bg-[#483c49]">{{ item.endTime }}</span>
-      </div>
-      <div class="companybox m-4">
-        <div
-          class="pic ml-[-26px] mt-[32px] float-left w-[22px] h-[22px]"
-        ></div>
-        <div
-          class="title pt-0 pr-[47px] pb-[6px] pl-[70px] flex justify-start items-center gap-4"
-        >
-          <h4 class="m-0 text-left text-[#5b4c5c] pb-[1px] text-[19px]">
-            {{ item.company }}
-          </h4>
-          <h5
-            class="m-0 text-left text-[16px] leading-6 pb-[11px] font-[400] text-[#5b4c5c] mt-[10px]"
-          >
-            {{ item.job }}
-          </h5>
+    <div class="w-full max-w-[1100px] mx-auto px-4 sm:px-6 pb-8">
+      <article
+        v-for="(item, index) in props.experience"
+        :key="`${item.company}-${item.beginTime}-${index}`"
+        class="surface-card text-left p-4 sm:p-6 mb-4"
+      >
+        <div class="flex flex-col md:flex-row md:items-start md:gap-6">
+          <div class="flex items-center gap-2 md:flex-col md:items-start md:min-w-[160px]">
+            <span class="inline-flex px-3 py-1 rounded-full text-white bg-brand-primary text-sm font-semibold">
+              {{ item.beginTime }}
+            </span>
+            <span class="inline-flex px-3 py-1 rounded-full text-white bg-brand-deep text-sm font-semibold">
+              {{ item.endTime }}
+            </span>
+          </div>
+          <div class="mt-3 md:mt-0">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-3">
+              <h4 class="m-0 text-[18px] sm:text-[19px] font-bold text-text">
+                {{ item.company }}
+              </h4>
+              <p class="m-0 text-[14px] sm:text-[16px] font-medium text-text-muted">
+                {{ item.job }}
+              </p>
+            </div>
+            <p class="mt-2 text-[14px] sm:text-[16px] leading-6 text-text-subtle">
+              {{ item.reap }}
+            </p>
+          </div>
         </div>
-        <p class="text-left ml-[70px] max-w-[1200px]">{{ item.reap }}</p>
-      </div>
+      </article>
     </div>
   </div>
 </template>
@@ -63,24 +68,4 @@ const props = withDefaults(
 );
 </script>
 
-<style scoped>
-span {
-  display: block;
-  font-size: 18px;
-  padding: 0 21px;
-  white-space: nowrap;
-  float: right;
-  margin-bottom: 2px;
-  margin-right: 28px;
-  font-weight: bold;
-  color: #fff;
-  line-height: 40px;
-}
-.companybox {
-  border-left: dashed 1px #897f8a;
-  padding: 0px 15px;
-}
-.pic {
-  background: url("../../assets/arrow-left.png") no-repeat 0 0 #f8f7f8;
-}
-</style>
+<style scoped></style>

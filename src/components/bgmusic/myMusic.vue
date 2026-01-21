@@ -3,7 +3,7 @@
     <audio ref="audio" autoplay loop>
       <source src="./songs/LoveStory.mp3" />
     </audio>
-    <div class="bgImg cursor-pointer" @click="toggleMusic">
+    <div @click="toggleMusic" class="cursor-pointer">
       <SvgIcon style="width: 56px; height: 56px" name="music" />
     </div>
   </div>

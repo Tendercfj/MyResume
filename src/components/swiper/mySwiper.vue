@@ -20,11 +20,11 @@
       class="swiperText absolute top-[45%] left-0 w-full -translate-y-1/2 m-auto"
     >
       <h2
-        class="swiper-text text-white text-5xl text-center"
+        class="swiper-text text-white text-3xl sm:text-4xl md:text-5xl text-center px-4"
         ref="swiperName"
       ></h2>
       <p
-        class="text-white text-[18px] text-center m-2"
+        class="text-white text-[14px] sm:text-[16px] md:text-[18px] text-center m-2 px-4"
         ref="swiperDescription"
       ></p>
     </div>

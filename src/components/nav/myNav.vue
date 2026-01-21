@@ -7,7 +7,7 @@
         background: props.Ibackground,
       }"
       :class="{ fixed: show }"
-      class="min-w-[1337px] my-0 mx-auto flex items-center justify-around w-full px-[15%] py-0 shadow-lg shadow-indigo-500/40 rounded-b-xl"
+      class="my-0 mx-auto flex items-center justify-between w-full max-w-[1337px] px-4 md:px-[10%] py-0 rounded-b-xl border border-border bg-surface-2 shadow-sm overflow-x-auto whitespace-nowrap no-scrollbar"
     >
       <li
         v-for="(item, index) in props.navList"
@@ -15,7 +15,7 @@
         :style="{ fontSize: props.IfontSize + 'px' }"
         @click="handleClick(index, item.id)"
         :class="{ active: index === activeIndex }"
-        class="leading-[60px] px-[25px] py-0 text-[#777] font-bold hover:text-[#ef7674] hover:cursor-pointer transition-colors duration-300"
+        class="leading-[60px] px-3 md:px-6 py-0 text-text-muted font-bold hover:text-brand-primary hover:cursor-pointer transition-colors duration-300 shrink-0"
       >
         {{ item.text }}
       </li>
@@ -23,43 +23,40 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 
-const props = defineProps({
-  navList: {
-    type: Array,
-    required: true,
-    default: () => [],
-  },
-  Iwidth: {
-    type: [String, Number],
-    required: true,
-    default: 50,
-  },
-  Iheight: {
-    type: Number,
-    required: true,
-    default: 50,
-  },
-  Ibackground: {
-    type: String,
-    required: true,
-    default: "#fff",
-  },
-  IfontSize: {
-    type: Number,
-    required: true,
-    default: 12,
-  },
-});
+type NavItem = {
+  text: string;
+  id: string;
+};
 
-const emit = defineEmits(["_click", "scroll"]);
+const props = withDefaults(
+  defineProps<{
+    navList: NavItem[];
+    Iwidth?: string | number;
+    Iheight?: number;
+    Ibackground?: string;
+    IfontSize?: number;
+  }>(),
+  {
+    navList: () => [],
+    Iwidth: 50,
+    Iheight: 50,
+    Ibackground: "#fff",
+    IfontSize: 12,
+  },
+);
+
+const emit = defineEmits<{
+  (e: "_click", payload: { index: number; id: string }): void;
+  (e: "scroll", value: boolean): void;
+}>();
 const activeIndex = ref(0);
 const show = ref(false);
-const nav = ref(null);
+const nav = ref<HTMLElement | null>(null);
 
-const handleClick = (index, id) => {
+const handleClick = (index: number, id: string) => {
   activeIndex.value = index;
   emit("_click", { index, id });
 };
@@ -76,7 +73,7 @@ const handleScroll = () => {
 
 // 更新当前活动的导航项
 const updateActiveSection = () => {
-  const sections = document.querySelectorAll("section[id]");
+  const sections = document.querySelectorAll<HTMLElement>("section[id]");
   const scrollPosition = window.scrollY;
 
   sections.forEach((section, index) => {
@@ -106,12 +103,13 @@ onUnmounted(() => {
   position: fixed;
   top: 0;
   width: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  transform: none;
   z-index: 100;
+  box-shadow: 0 8px 24px rgb(15 23 42 / 0.06);
 }
 
 .active {
-  color: #ef7674;
+  color: rgb(var(--brand-primary));
 }
 </style>

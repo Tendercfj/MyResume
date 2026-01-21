@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 统一色板（RGB 三元组，便于 Tailwind 使用 alpha） */
+:root {
+  /* 简约浅色系：中性色 + 单一强调色 */
+  --bg: 248 250 252;
+  --surface: 255 255 255;
+  --surface-2: 255 255 255;
+
+  --text: 15 23 42;
+  --text-muted: 71 85 105;
+  --text-subtle: 100 116 139;
+
+  --border: 226 232 240;
+
+  --brand-primary: 99 102 241; /* 强调色（indigo） */
+  --brand-deep: 30 41 59; /* 深色中性（用于少量对比） */
+}
+
 *{
   padding: 0;
   margin: 0;
@@ -9,4 +26,32 @@
 }
 body{
   overflow-x: hidden;
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgb(var(--brand-primary) / 0.18);
+}
+
+@layer components {
+  .surface-card {
+    @apply rounded-2xl border border-border bg-surface-2 text-text shadow-sm;
+  }
+
+  .fab {
+    @apply surface-card grid place-items-center w-12 h-12 cursor-pointer hover:border-brand-primary/30 hover:bg-brand-primary/5 active:bg-brand-primary/10;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }

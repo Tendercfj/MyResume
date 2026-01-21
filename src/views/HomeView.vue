@@ -16,7 +16,6 @@
         :key="section.id"
         :id="section.id"
         :class="`home-${section.id}`"
-        ref="sectionRefs"
       >
         <component :is="section.component" v-bind="section.props" />
       </section>
@@ -25,7 +24,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, reactive } from "vue";
 import { useResumeStore } from "../store/resumeStore";
 import mySwiper from "../components/swiper/mySwiper.vue";
@@ -40,9 +39,14 @@ import data from "../json/json";
 
 const store = useResumeStore();
 const show = ref(false);
-const sectionRefs = ref([]);
 
-const sections = reactive([
+type Section = {
+  id: string;
+  component: unknown;
+  props: Record<string, unknown>;
+};
+
+const sections = reactive<Section[]>([
   {
     id: "about",
     component: aboutMe,
@@ -79,9 +83,7 @@ const sections = reactive([
     id: "touch",
     component: myTouch,
     props: {
-      touch: data.touch,
-      inf: data.inf,
-      phone: data.phone,
+      contact: data.contact,
     },
   },
 ]);
@@ -105,17 +107,17 @@ const navProps = computed(() => ({
     ...item,
     id: sectionIds.value[index],
   })),
-  IWidth: 100,
-  IHeight: 60,
-  IBackground: "#fff",
-  ISize: 18,
+  Iwidth: 100,
+  Iheight: 60,
+  Ibackground: "rgb(var(--surface-2))",
+  IfontSize: 18,
 }));
 
-const handleScroll = (value) => {
+const handleScroll = (value: boolean) => {
   show.value = value;
 };
 
-const handleSectionClick = ({ index, id }) => {
+const handleSectionClick = ({ id }: { index: number; id: string }) => {
   const targetSection = document.getElementById(id);
   if (targetSection) {
     const offset = 80;
@@ -139,7 +141,7 @@ onMounted(() => {
 
 <style scoped>
 .home {
-  min-width: 1337px;
+  width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -154,7 +156,7 @@ onMounted(() => {
 
 @media screen and (max-width: 768px) {
   .home {
-    min-width: 100%;
+    width: 100%;
   }
 }
 </style>

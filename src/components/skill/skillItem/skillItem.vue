@@ -17,15 +17,20 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import { computed } from "vue";
 
-const props = defineProps({
-  skillItem: {
-    type: Array,
-  },
-});
-const skillItem = ref(props.skillItem);
+type SkillItem = {
+  title: string;
+  description: string;
+  backgroundImage?: string;
+};
+
+const props = defineProps<{
+  skillItem?: SkillItem[];
+}>();
+
+const skillItem = computed(() => props.skillItem ?? []);
 </script>
 
 <style scoped>
@@ -104,6 +109,34 @@ header {
 
   to {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .shell {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .box {
+    border-width: 8px;
+    min-height: 140px;
+  }
+  .box:hover {
+    flex: 1;
+  }
+  .text {
+    width: calc(100% - 24px);
+    max-width: 100%;
+    height: auto;
+    padding: 18px 16px;
+    opacity: 1;
+    border-radius: 16px;
+    overflow-wrap: anywhere;
+  }
+  header {
+    font-size: 26px;
+    height: auto;
+    line-height: 32px;
   }
 }
 </style>

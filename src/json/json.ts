@@ -183,7 +183,7 @@ const data: ResumeData = {
   contact: {
     email: "1805150751@qq.com",
     phone: "17384340081",
-    github: "https://github.com/Tendercfj/MyResume",
+    github: "https://github.com/Tendercfj",
   },
 };
 

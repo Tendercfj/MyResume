@@ -63,7 +63,7 @@ const props = withDefaults(
     imgWidth: 100,
     imgHeight: 100,
     delay: 2000,
-  }
+  },
 );
 
 let timer: number | undefined;
@@ -78,14 +78,14 @@ onMounted(() => {
   }, delay());
   if (!swiperName.value || !swiperDescription.value) return;
   typedName = new Typed(swiperName.value, {
-    strings: [`我叫${props.name}`], //文本
+    strings: [`你好，我叫${props.name}，欢迎来到我的简历！`], //文本
     typeSpeed: 100,
     backSpeed: 100,
     loop: false,
   });
   typedDescription = new Typed(swiperDescription.value, {
     strings: [
-      `前端开发工程师一枚,${props.year}年实习经验的前端实习生，乐于尝试新技术，学习能力强。`,
+      `我是一名前端开发工程师，${props.year}年工作经验，现就职于杭州米塔碳公司，主要负责前端开发工作。`,
     ], //文本
     typeSpeed: 100,
     backSpeed: 100,

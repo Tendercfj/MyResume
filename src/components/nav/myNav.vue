@@ -1,5 +1,6 @@
 <template>
-  <div class="nav flex justify-between items-center" ref="nav">
+  <div class="nav" ref="nav">
+    <!-- Desktop Navigation -->
     <ul
       :style="{
         width: props.Iwidth + '%',
@@ -7,7 +8,7 @@
         background: props.Ibackground,
       }"
       :class="{ fixed: show }"
-      class="my-0 mx-auto flex items-center justify-between w-full max-w-[1337px] px-4 md:px-[10%] py-0 rounded-b-xl border border-border bg-surface-2 shadow-sm overflow-x-auto whitespace-nowrap no-scrollbar"
+      class="hidden md:flex my-0 mx-auto items-center justify-between w-full max-w-[1337px] px-4 md:px-[10%] py-0 rounded-b-xl border border-border bg-surface-2 shadow-sm overflow-x-auto whitespace-nowrap no-scrollbar"
     >
       <li
         v-for="(item, index) in props.navList"
@@ -20,6 +21,103 @@
         {{ item.text }}
       </li>
     </ul>
+
+    <!-- Mobile Navigation Trigger -->
+    <div
+      :class="{ 'mobile-fixed': show }"
+      class="md:hidden flex items-center justify-start w-fit px-4 h-[50px] transition-all duration-300 z-[100]"
+    >
+      <div
+        @click="toggleMenu"
+        class="p-2 rounded-lg bg-surface-2 border border-border shadow-lg hover:bg-surface-3 transition-colors cursor-pointer flex items-center justify-center"
+      >
+        <svg
+          class="w-6 h-6 text-text"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <Transition name="fade">
+      <div
+        v-if="isMenuOpen"
+        @click="toggleMenu"
+        class="fixed inset-0 z-[110] bg-black/70 backdrop-blur-[6px] md:hidden"
+      >
+        <Transition name="slide">
+          <div
+            v-if="isMenuOpen"
+            @click.stop
+            class="absolute left-0 top-0 bottom-0 w-[280px] bg-surface-2 shadow-[20px_0_50px_rgba(0,0,0,0.2)] p-8 flex flex-col border-r border-border/50"
+          >
+            <div class="flex items-center justify-between mb-10">
+              <div class="flex flex-col">
+                <span class="text-2xl font-black text-brand-primary tracking-tighter">NAVIGATION</span>
+                <div class="h-1 w-8 bg-brand-primary mt-1 rounded-full"></div>
+              </div>
+              <button
+                @click="toggleMenu"
+                class="p-2 rounded-xl bg-surface-3 text-text-muted hover:text-brand-primary hover:scale-110 active:scale-95 transition-all duration-300"
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.5"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            
+            <nav class="flex-1">
+              <ul class="flex flex-col gap-3">
+                <li
+                  v-for="(item, index) in props.navList"
+                  :key="item.id"
+                  @click="handleMobileClick(index, item.id)"
+                  :class="[
+                    index === activeIndex 
+                    ? 'text-brand-primary bg-brand-primary/5 font-bold translate-x-1' 
+                    : 'text-text-muted font-medium hover:text-brand-primary hover:bg-surface-3 hover:translate-x-1'
+                  ]"
+                  class="group flex items-center justify-between px-5 py-4 rounded-2xl transition-all duration-300 cursor-pointer"
+                >
+                  <span class="text-lg">{{ item.text }}</span>
+                  <svg 
+                    class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </li>
+              </ul>
+            </nav>
+
+            <div class="mt-auto pt-8 border-t border-border/30">
+              <p class="text-xs text-text-muted/50 uppercase tracking-widest font-semibold">Resume Portal v1.0</p>
+            </div>
+          </div>
+        </Transition>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -54,6 +152,7 @@ const emit = defineEmits<{
 }>();
 const activeIndex = ref(0);
 const show = ref(false);
+const isMenuOpen = ref(false);
 const nav = ref<HTMLElement | null>(null);
 
 const handleClick = (index: number, id: string) => {
@@ -61,14 +160,35 @@ const handleClick = (index: number, id: string) => {
   emit("_click", { index, id });
 };
 
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+  if (isMenuOpen.value) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+};
+
+const handleMobileClick = (index: number, id: string) => {
+  // 先关闭菜单，利用 transition 的硬件加速
+  isMenuOpen.value = false;
+  document.body.style.overflow = "";
+  
+  // 稍微延迟跳转，避开菜单关闭时的动画计算高峰，让动画更流畅
+  setTimeout(() => {
+    handleClick(index, id);
+  }, 300); // 匹配 transition 时间
+};
+
 // 监听滚动位置更新导航状态
 const handleScroll = () => {
-  const top = nav.value?.getBoundingClientRect().top ?? 0;
-  show.value = top <= 0;
-  emit("scroll", show.value);
-
-  // 更新当前活动的导航项
-  updateActiveSection();
+  // 使用 requestAnimationFrame 优化滚动逻辑
+  requestAnimationFrame(() => {
+    const top = nav.value?.getBoundingClientRect().top ?? 0;
+    show.value = top <= 0;
+    emit("scroll", show.value);
+    updateActiveSection();
+  });
 };
 
 // 更新当前活动的导航项
@@ -95,6 +215,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
+  document.body.style.overflow = "";
 });
 </script>
 
@@ -102,14 +223,45 @@ onUnmounted(() => {
 .fixed {
   position: fixed;
   top: 0;
-  width: 100%;
   left: 0;
-  transform: none;
+  right: 0;
   z-index: 100;
+  margin-left: auto;
+  margin-right: auto;
   box-shadow: 0 8px 24px rgb(15 23 42 / 0.06);
+}
+
+.mobile-fixed {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0;
 }
 
 .active {
   color: rgb(var(--brand-primary));
+}
+
+/* Transitions */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(-100%);
 }
 </style>

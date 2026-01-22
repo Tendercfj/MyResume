@@ -19,17 +19,29 @@
   --brand-deep: 30 41 59; /* 深色中性（用于少量对比） */
 }
 
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-body{
+body {
   overflow-x: hidden;
   background: rgb(var(--bg));
   color: rgb(var(--text));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 隐藏全局纵向滚动条，但保留滚动能力 */
+html,
+body {
+  -ms-overflow-style: none; /* IE/旧 Edge */
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 ::selection {

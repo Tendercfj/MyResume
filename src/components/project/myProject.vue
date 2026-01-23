@@ -1,5 +1,5 @@
 <template>
-  <div class="project w-full bg-white block">
+  <div class="project w-full bg-surface block">
     <div
       class="content w-full max-w-[1100px] py-14 md:py-16 px-4 sm:px-6 mx-auto text-center"
     >

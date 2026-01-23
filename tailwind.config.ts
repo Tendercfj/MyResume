@@ -9,6 +9,7 @@ export default {
         surface: {
           DEFAULT: "rgb(var(--surface) / <alpha-value>)",
           2: "rgb(var(--surface-2) / <alpha-value>)",
+          3: "rgb(var(--surface-3) / <alpha-value>)",
         },
         text: {
           DEFAULT: "rgb(var(--text) / <alpha-value>)",

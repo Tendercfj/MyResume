@@ -18,7 +18,7 @@
       :visible="showPlayer"
       server="netease"
       type="playlist"
-      id="129627424"
+      id="9095117494"
     />
   </div>
 </template>

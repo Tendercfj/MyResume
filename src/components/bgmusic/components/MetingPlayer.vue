@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import { useScreenSize } from '@/hooks/useScreenSize';
-import { computed } from 'vue';
+import { useScreenSize } from "@/hooks/useScreenSize";
+import { computed } from "vue";
 
 defineProps<{
   visible: boolean;
@@ -27,10 +27,10 @@ defineProps<{
   id: string;
 }>();
 
-const {width} = useScreenSize();
+const { width } = useScreenSize();
 const mini = computed(() => {
   return width.value < 768 ? true : false;
-})
+});
 
 // const emit = defineEmits(["close"]);
 </script>
@@ -89,6 +89,9 @@ const mini = computed(() => {
   background: transparent;
   font-size: 20px;
   cursor: pointer;
+  color: #999;
+}
+:deep(.aplayer-list-title) {
   color: #999;
 }
 </style>

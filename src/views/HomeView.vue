@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <section id="swiper" class="home-swiper" v-lazy-load>
+    <section
+      id="swiper"
+      class="home-swiper"
+      v-lazy-load="{ animation: 'fade', duration: 700 }"
+    >
       <mySwiper v-bind="swiperProps" @loaded="handleSwiperLoaded" />
     </section>
     <div class="home-nav">
@@ -12,10 +16,16 @@
     </div>
     <main class="home-content">
       <section
-        v-for="section in sections"
+        v-for="(section, index) in sections"
         :key="section.id"
         :id="section.id"
         :class="`home-${section.id}`"
+        v-lazy-load="{
+          animation: index % 2 === 0 ? 'fade-left' : 'fade-right',
+          duration: 680,
+          delay: Math.min(index * 140, 560),
+          rootMargin: '0px 0px -12% 0px',
+        }"
       >
         <component :is="section.component" v-bind="section.props" />
       </section>

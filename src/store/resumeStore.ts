@@ -36,7 +36,7 @@ export const useResumeStore = defineStore("resume", () => {
     { src: img4 },
   ];
   const name = "Tender";
-  const year = "0.5";
+  const year = "半";
   const navList: NavItem[] = [
     { text: "首页", id: "#home" },
     { text: "关于我", id: "aboutme" },

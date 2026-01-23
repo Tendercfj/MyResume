@@ -7,11 +7,11 @@ const routes: RouteRecordRaw[] = [
     name: "Home",
     component: Home,
   },
-  {
-    path: "/dialog",
-    name: "Dialog",
-    component: () => import("../views/DialogTest.vue"),
-  },
+  // {
+  //   path: "/dialog",
+  //   name: "Dialog",
+  //   component: () => import("../views/DialogTest.vue"),
+  // },
 ];
 
 const router = createRouter({

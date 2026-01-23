@@ -40,7 +40,7 @@ export type ResumeData = {
 
 const data: ResumeData = {
   aboutme: [
-    "我能够开发高质量的Web和垮端应用，能注重用户体验，对Web性能有深入的理解，对前端工程化有浓厚兴趣。我拥有React、Vue、TypeScript、Tailwind CSS 等前端技术的丰富经验，同时也具备 Node.js等后端开发经验。",
+    "我能够开发高质量的Web和跨端应用，能注重用户体验，对Web性能有深入的理解，对前端工程化有浓厚兴趣。我拥有React、Vue、TypeScript、Tailwind CSS 等前端技术的丰富经验，同时也具备 Node.js等后端开发经验。",
   ],
 
   skillText:

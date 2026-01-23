@@ -5,10 +5,9 @@
       :style="{
         width: props.Iwidth + '%',
         height: props.Iheight + 'px',
-        background: props.Ibackground,
       }"
       :class="{ fixed: show }"
-      class="hidden md:flex my-0 mx-auto items-center justify-between w-full max-w-[1337px] px-4 md:px-[10%] py-0 rounded-b-xl border border-border bg-surface-2 shadow-sm overflow-x-auto whitespace-nowrap no-scrollbar"
+      class="hidden md:flex my-0 mx-auto items-center justify-between w-full max-w-[1337px] px-4 md:px-[10%] py-0 rounded-b-xl border border-white/10 bg-white/[0.03] backdrop-blur-xl shadow-lg border-t-0 overflow-x-auto whitespace-nowrap no-scrollbar transition-all duration-300"
     >
       <li
         v-for="(item, index) in props.navList"
@@ -16,9 +15,10 @@
         :style="{ fontSize: props.IfontSize + 'px' }"
         @click="handleClick(index, item.id)"
         :class="{ active: index === activeIndex }"
-        class="leading-[60px] px-3 md:px-6 py-0 text-text-muted font-bold hover:text-brand-primary hover:cursor-pointer transition-colors duration-300 shrink-0"
+        class="nav-item leading-[60px] px-3 md:px-6 py-0 text-text-muted font-bold hover:text-brand-primary hover:cursor-pointer transition-all duration-300 shrink-0 relative overflow-hidden"
       >
-        {{ item.text }}
+        <span class="relative z-10">{{ item.text }}</span>
+        <div class="active-indicator h-1 w-0 bg-brand-primary absolute bottom-0 left-1/2 -translate-x-1/2 transition-all duration-300 rounded-t-full"></div>
       </li>
     </ul>
 
@@ -29,7 +29,7 @@
     >
       <div
         @click="toggleMenu"
-        class="p-2 rounded-lg bg-surface-2 border border-border shadow-lg hover:bg-surface-3 transition-colors cursor-pointer flex items-center justify-center"
+        class="p-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-lg shadow-lg hover:bg-white/10 transition-colors cursor-pointer flex items-center justify-center"
       >
         <svg
           class="w-6 h-6 text-text"
@@ -58,7 +58,7 @@
           <div
             v-if="isMenuOpen"
             @click.stop
-            class="absolute left-0 top-0 bottom-0 w-[280px] bg-surface-2 shadow-[20px_0_50px_rgba(0,0,0,0.2)] p-8 flex flex-col border-r border-border/50"
+            class="absolute left-0 top-0 bottom-0 w-[280px] bg-[#1a1c23]/90 backdrop-blur-2xl shadow-[20px_0_50px_rgba(0,0,0,0.5)] p-8 flex flex-col border-r border-white/10"
           >
             <div class="flex items-center justify-between mb-10">
               <div class="flex flex-col">
@@ -228,7 +228,8 @@ onUnmounted(() => {
   z-index: 100;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 8px 24px rgb(15 23 42 / 0.06);
+  box-shadow: 0 10px 40px rgb(0 0 0 / 0.4);
+  border-radius: 0;
 }
 
 .mobile-fixed {
@@ -241,6 +242,14 @@ onUnmounted(() => {
 
 .active {
   color: rgb(var(--brand-primary));
+}
+
+.active .active-indicator {
+  width: 60%;
+}
+
+.nav-item:hover .active-indicator {
+  width: 30%;
 }
 
 /* Transitions */

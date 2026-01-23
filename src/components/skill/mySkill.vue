@@ -1,5 +1,5 @@
 <template>
-  <div class="skill w-full bg-surface block">
+  <div class="skill w-full block">
     <div class="content py-14 md:py-16 px-[15px] mx-auto text-center">
       <commonTitle :title="title" />
       <p

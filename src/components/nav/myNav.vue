@@ -229,7 +229,6 @@ onUnmounted(() => {
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 10px 40px rgb(0 0 0 / 0.4);
-  border-radius: 0;
 }
 
 .mobile-fixed {

@@ -4,6 +4,7 @@
       v-for="(item, index) in skillItem"
       :key="index"
       :class="`box img${index + 1}`"
+      :style="{ backgroundImage: item.backgroundImage }"
     >
       <div class="text flex flex-col justify-center items-center">
         <header>

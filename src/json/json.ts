@@ -22,6 +22,13 @@ export type ProjectCard = {
 
 const cover1 = new URL("../assets/project/1.png", import.meta.url).href;
 const cover2 = new URL("../assets/project/2.png", import.meta.url).href;
+const skillCoverBase = {
+  three: new URL("../assets/svg/three.svg", import.meta.url).href,
+  vue: new URL("../assets/svg/vue.svg", import.meta.url).href,
+  react: new URL("../assets/svg/react.svg", import.meta.url).href,
+  git: new URL("../assets/svg/git.svg", import.meta.url).href,
+  vibeCoding: new URL("../assets/vibeCoding.png", import.meta.url).href,
+};
 
 export type ResumeData = {
   aboutme: string[];
@@ -40,14 +47,12 @@ export type ResumeData = {
 
 const data: ResumeData = {
   aboutme: [
-    "我能够开发高质量的Web和跨端应用，能注重用户体验，对Web性能有深入的理解，对前端工程化有浓厚兴趣。我拥有React、Vue、TypeScript、Tailwind CSS 等前端技术的丰富经验，同时也具备 Node.js等后端开发经验。",
+    "我能够开发高质量的Web和跨端应用，能注重用户体验，对Web性能有深入的理解，对前端工程化有浓厚兴趣。我拥有React、Vue、TypeScript、Tailwind CSS 等前端技术的丰富经验，同时也具备 Node.js等后端开发经验。并且能够熟练使用各种AI工具和Skills进行Vibe Coding，提升编程效率。",
   ],
 
   skillText:
     "前端开发需要一个持续和长期的学习，需要在各种领域都有充足的知识储备，需要对新技术的学习保持热情。",
   skill: [
-    "HTML5",
-    "CSS3",
     "JavaSript",
     "Vue",
     "React",
@@ -55,31 +60,42 @@ const data: ResumeData = {
     "TailwindCSS",
     "Typescript",
     "Node",
+    "React Native",
+    "Next",
+    "Vite",
+    "Webpack",
+    "Vibe Coding"
   ],
   skillItem: [
     {
       title: "HTML+CSS+JS",
       description:
         "熟悉HTML5、CSS3、JavaScript（ES6）和TypeScript，具备扎实的前端开发基础。",
-      backgroundImage: 'url("../../../assets/three.webp")',
+      backgroundImage: `url("${skillCoverBase.three}")`,
     },
     {
       title: "VUE",
       description:
         "熟悉Vue3.js框架，熟悉组件化开发，熟悉VueRouter路由和Pinia状态管理库，有相关VUE实际项目经验。",
-      backgroundImage: 'url("../../../assets/vue.png")',
+      backgroundImage: `url("${skillCoverBase.vue}")`,
     },
     {
       title: "REACT",
       description:
         "熟悉React框架，了解React Hooks组件化开发，熟悉react-router路由和redux状态管理库，有相关REACT实际项目经验。",
-      backgroundImage: 'url("../../../assets/react.svg")',
+      backgroundImage: `url("${skillCoverBase.react}")`,
     },
     {
       title: "SKILL",
       description:
         "能使用git进行版本控制和团队协作。熟练使用Axios进行前后端数据交互，熟悉ElementUI、AntDesign等组件库的使用，熟悉TailwindCSS的使用。",
-      backgroundImage: 'url("../../../assets/git.png")',
+      backgroundImage: `url("${skillCoverBase.git}")`,
+    },
+    {
+      title: "VIBE CODING",
+      description:
+        "能使用vibe coding进行编程，提升编程效率，提升编程能力；能配合相关SKILLS对Coding过程进行相关约束，提高Coding的准确度。",
+      backgroundImage: `url("${skillCoverBase.vibeCoding}")`,
     },
   ],
 

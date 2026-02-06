@@ -41,6 +41,8 @@ import { Vue3Lottie } from "vue3-lottie";
 import AnimaBot from "@/assets/JSON/AnimaBot.json";
 import { useScreenSize } from "@/hooks/useScreenSize";
 import MetingPlayer from "./components/MetingPlayer.vue";
+import { useResumeStore } from "@/store/resumeStore";
+const store = useResumeStore();
 
 const audio = ref<HTMLAudioElement | null>(null);
 
@@ -66,10 +68,10 @@ const lottieHeight = computed(() => {
 const loadingText = computed(() => {
   // 触发定时更新（用于“网络较慢”的提示）
   void loadingTick.value;
-  if (!loadingStartedAt.value) return "加载播放器中...";
+  if (!loadingStartedAt.value) return store.uiText.music.loading;
   return Date.now() - loadingStartedAt.value > 3500
-    ? "网络较慢，仍在加载播放器..."
-    : "加载播放器中...";
+    ? store.uiText.music.slowLoading
+    : store.uiText.music.loading;
 });
 
 const toggleMusic = () => {

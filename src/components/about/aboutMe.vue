@@ -16,7 +16,11 @@
           <div
             class="imgBox h-[88px] w-[88px] md:h-[100px] md:w-[100px] my-0 mx-auto bg-brand-primary/20 rounded-[50%] p-[10px] border border-brand-primary/50 shadow-[0_0_20px_rgba(139,92,246,0.4)]"
           >
-            <img class="block w-full filter brightness-0 invert" :src="item.src" alt="关于我" />
+            <img
+              class="block w-full filter brightness-0 invert"
+              :src="item.src"
+              :alt="store.uiText.about.imageAlt"
+            />
           </div>
 
           <p
@@ -37,9 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed } from "vue";
+import { useResumeStore } from "@/store/resumeStore";
 import commonTitle from "../title/commonTitle.vue";
-const title = ref("关于我");
+const store = useResumeStore();
+const title = computed(() => store.uiText.about.title);
 type AboutMeItem = {
   src: string;
   title: string;

@@ -35,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, reactive } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useResumeStore } from "../store/resumeStore";
 import mySwiper from "../components/swiper/mySwiper.vue";
 import myNav from "../components/nav/myNav.vue";
@@ -45,7 +45,9 @@ import myExperience from "../components/experience/myExperience.vue";
 import myProject from "../components/project/myProject.vue";
 import myTouch from "../components/touch/myTouch.vue";
 import myMusic from "../components/bgmusic/myMusic.vue";
-import data from "../json/json";
+import dataZh from "../json/json";
+import dataEn from "../json/json.en";
+import type { ResumeData } from "../json/types";
 
 const store = useResumeStore();
 const show = ref(false);
@@ -56,13 +58,17 @@ type Section = {
   props: Record<string, unknown>;
 };
 
-const sections = reactive<Section[]>([
+const resumeData = computed<ResumeData>(() =>
+  store.locale === "en-US" ? dataEn : dataZh,
+);
+
+const sections = computed<Section[]>(() => [
   {
     id: "about",
     component: aboutMe,
     props: {
-      show,
-      aboutMeText: data.aboutme,
+      show: show.value,
+      aboutMeText: resumeData.value.aboutme,
       aboutMeList: store.aboutMeList,
     },
   },
@@ -70,37 +76,38 @@ const sections = reactive<Section[]>([
     id: "skill",
     component: mySkill,
     props: {
-      skillText: data.skillText,
-      skill: data.skill,
+      skillText: resumeData.value.skillText,
+      skill: resumeData.value.skill,
+      skillItem: resumeData.value.skillItem,
     },
   },
   {
     id: "experience",
     component: myExperience,
     props: {
-      experience: data.experience,
-      experienceText: data.experienceText,
+      experience: resumeData.value.experience,
+      experienceText: resumeData.value.experienceText,
     },
   },
   {
     id: "project",
     component: myProject,
     props: {
-      project: data.project,
+      project: resumeData.value.project,
     },
   },
   {
     id: "touch",
     component: myTouch,
     props: {
-      contact: data.contact,
+      contact: resumeData.value.contact,
     },
   },
 ]);
 
 const sectionIds = computed(() => [
   "swiper",
-  ...sections.map((section) => section.id),
+  ...sections.value.map((section) => section.id),
 ]);
 
 const swiperProps = computed(() => ({

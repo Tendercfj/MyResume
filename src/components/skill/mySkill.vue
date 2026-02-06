@@ -8,7 +8,7 @@
         {{ props.skillText }}
       </p>
       <div class="skillItem h-auto md:h-[500px] m-2 md:m-4">
-        <skillItem :skillItem="data.skillItem" />
+        <skillItem :skillItem="props.skillItem" />
       </div>
       <ul class="w-full flex justify-around items-center flex-wrap mt-4">
         <li
@@ -26,17 +26,24 @@
 <script setup lang="ts">
 import skillItem from "./skillItem/skillItem.vue";
 import commonTitle from "../title/commonTitle.vue";
-import data from "../../json/json";
-import { ref } from "vue";
-const title = ref("技能 - 个人优势");
+import { computed } from "vue";
+import { useResumeStore } from "@/store/resumeStore";
+const store = useResumeStore();
+const title = computed(() => store.uiText.skill.title);
 const props = withDefaults(
   defineProps<{
     skill?: string[];
     skillText?: string;
+    skillItem?: {
+      title: string;
+      description: string;
+      backgroundImage: string;
+    }[];
   }>(),
   {
     skill: () => [],
     skillText: "",
+    skillItem: () => [],
   }
 );
 </script>

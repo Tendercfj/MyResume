@@ -12,7 +12,7 @@
           :key="index"
           :class="index === showIndex ? 'items_active' : 'items'"
         >
-          <img :src="img.src" alt="封面轮播图" />
+          <img :src="img.src" :alt="store.uiText.swiper.imageAlt" />
         </li>
       </ul>
     </div>
@@ -32,8 +32,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import Typed from "typed.js";
+import { useResumeStore } from "@/store/resumeStore";
+const store = useResumeStore();
 const showIndex = ref(0);
 const swiperName = ref<HTMLElement | null>(null);
 const swiperDescription = ref<HTMLElement | null>(null);
@@ -69,6 +71,31 @@ const props = withDefaults(
 let timer: number | undefined;
 let typedName: any = null;
 let typedDescription: any = null;
+const renderTypedText = () => {
+  if (!swiperName.value || !swiperDescription.value) return;
+  if (typedName) {
+    typedName.destroy();
+    typedName = null;
+  }
+  if (typedDescription) {
+    typedDescription.destroy();
+    typedDescription = null;
+  }
+  swiperName.value.textContent = "";
+  swiperDescription.value.textContent = "";
+  typedName = new Typed(swiperName.value, {
+    strings: [store.uiText.swiper.greeting(props.name)],
+    typeSpeed: 100,
+    backSpeed: 100,
+    loop: false,
+  });
+  typedDescription = new Typed(swiperDescription.value, {
+    strings: [store.uiText.swiper.summary(props.year)],
+    typeSpeed: 100,
+    backSpeed: 100,
+    loop: false,
+  });
+};
 const delay = () => {
   return props.delay;
 };
@@ -76,22 +103,9 @@ onMounted(() => {
   timer = window.setInterval(() => {
     next();
   }, delay());
-  if (!swiperName.value || !swiperDescription.value) return;
-  typedName = new Typed(swiperName.value, {
-    strings: [`你好，我叫${props.name}，欢迎来到我的简历！`], //文本
-    typeSpeed: 100,
-    backSpeed: 100,
-    loop: false,
-  });
-  typedDescription = new Typed(swiperDescription.value, {
-    strings: [
-      `我是一名前端开发工程师，${props.year}年工作经验，现就职于杭州米塔碳公司，主要负责前端开发工作。`,
-    ], //文本
-    typeSpeed: 100,
-    backSpeed: 100,
-    loop: false,
-  });
+  renderTypedText();
 });
+watch(() => store.locale, renderTypedText);
 onUnmounted(() => {
   if (timer) window.clearInterval(timer);
   if (typedName) {

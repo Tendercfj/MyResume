@@ -13,7 +13,7 @@
             <SvgIcon style="width: 22px; height: 22px" name="mail" />
           </span>
           <div class="text-left min-w-0">
-            <p class="m-0 text-sm text-text-muted">邮箱</p>
+            <p class="m-0 text-sm text-text-muted">{{ store.uiText.touch.email }}</p>
             <p class="m-0 font-semibold text-text truncate">
               {{ props.contact.email }}
             </p>
@@ -28,7 +28,7 @@
             <SvgIcon style="width: 22px; height: 22px" name="phone" />
           </span>
           <div class="text-left min-w-0">
-            <p class="m-0 text-sm text-text-muted">电话</p>
+            <p class="m-0 text-sm text-text-muted">{{ store.uiText.touch.phone }}</p>
             <p class="m-0 font-semibold text-text truncate">
               {{ props.contact.phone }}
             </p>
@@ -57,10 +57,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed } from "vue";
+import { useResumeStore } from "@/store/resumeStore";
 import commonTitle from "../title/commonTitle.vue";
 import SvgIcon from "../SvgIcon.vue";
-const title = ref("联系我");
+const store = useResumeStore();
+const title = computed(() => store.uiText.touch.title);
 const props = withDefaults(
   defineProps<{
     contact?: {

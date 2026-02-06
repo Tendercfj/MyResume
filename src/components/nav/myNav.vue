@@ -1,5 +1,5 @@
 <template>
-  <div class="nav" ref="nav">
+  <div class="nav relative" ref="nav">
     <!-- Desktop Navigation -->
     <ul
       :style="{
@@ -7,7 +7,7 @@
         height: props.Iheight + 'px',
       }"
       :class="{ fixed: show }"
-      class="hidden md:flex my-0 mx-auto items-center justify-between w-full max-w-[1337px] px-4 md:px-[10%] py-0 rounded-b-xl border border-white/10 bg-white/[0.03] backdrop-blur-xl shadow-lg border-t-0 overflow-x-auto whitespace-nowrap no-scrollbar transition-all duration-300"
+      class="hidden md:flex my-0 mx-auto items-center justify-between w-full max-w-[1337px] px-4 md:px-[10%] py-0 rounded-b-xl border border-white/10 bg-white/[0.03] backdrop-blur-xl shadow-lg border-t-0 overflow-x-auto whitespace-nowrap no-scrollbar transition-all duration-300 relative"
     >
       <li
         v-for="(item, index) in props.navList"
@@ -19,6 +19,12 @@
       >
         <span class="relative z-10">{{ item.text }}</span>
         <div class="active-indicator h-1 w-0 bg-brand-primary absolute bottom-0 left-1/2 -translate-x-1/2 transition-all duration-300 rounded-t-full"></div>
+      </li>
+      <li class="absolute right-4 top-1/2 -translate-y-1/2">
+        <LanguageSelect
+          v-model="selectedLocale"
+          :options="localeOptions"
+        />
       </li>
     </ul>
 
@@ -62,27 +68,34 @@
           >
             <div class="flex items-center justify-between mb-10">
               <div class="flex flex-col">
-                <span class="text-2xl font-black text-brand-primary tracking-tighter">NAVIGATION</span>
+                <span class="text-2xl font-black text-brand-primary tracking-tighter">{{ store.uiText.nav.drawerTitle }}</span>
                 <div class="h-1 w-8 bg-brand-primary mt-1 rounded-full"></div>
               </div>
-              <button
-                @click="toggleMenu"
-                class="p-2 rounded-xl bg-surface-3 text-text-muted hover:text-brand-primary hover:scale-110 active:scale-95 transition-all duration-300"
-              >
-                <svg
-                  class="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              <div class="flex items-center gap-2">
+                <LanguageSelect
+                  v-model="selectedLocale"
+                  :options="localeOptions"
+                  mobile
+                />
+                <button
+                  @click="toggleMenu"
+                  class="p-2 rounded-xl bg-surface-3 text-text-muted hover:text-brand-primary hover:scale-110 active:scale-95 transition-all duration-300"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2.5"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              </button>
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2.5"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
             </div>
             
             <nav class="flex-1">
@@ -112,7 +125,7 @@
             </nav>
 
             <div class="mt-auto pt-8 border-t border-border/30">
-              <p class="text-xs text-text-muted/50 uppercase tracking-widest font-semibold">Resume Portal v1.0</p>
+              <p class="text-xs text-text-muted/50 uppercase tracking-widest font-semibold">{{ store.uiText.nav.version }}</p>
             </div>
           </div>
         </Transition>
@@ -122,7 +135,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
+import { useResumeStore } from "@/store/resumeStore";
+import type { Locale } from "@/i18n/resources";
+import LanguageSelect from "./components/LanguageSelect.vue";
 
 type NavItem = {
   text: string;
@@ -150,6 +166,17 @@ const emit = defineEmits<{
   (e: "_click", payload: { index: number; id: string }): void;
   (e: "scroll", value: boolean): void;
 }>();
+const store = useResumeStore();
+const localeOptions: { value: Locale; label: string }[] = [
+  { value: "zh-CN", label: "中文" },
+  { value: "en-US", label: "English" },
+];
+const selectedLocale = computed<Locale>({
+  get: () => store.locale,
+  set: (value) => {
+    store.setLocale(value);
+  },
+});
 const activeIndex = ref(0);
 const show = ref(false);
 const isMenuOpen = ref(false);

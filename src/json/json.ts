@@ -1,24 +1,4 @@
-type SkillItem = {
-  title: string;
-  description: string;
-  backgroundImage: string;
-};
-
-type ExperienceItem = {
-  company: string;
-  job: string;
-  reap: string;
-  beginTime: string;
-  endTime: string;
-};
-
-export type ProjectCard = {
-  cover?: string;
-  name: string;
-  summary: string;
-  highlights: string[];
-  stack: string[];
-};
+import type { ResumeData } from "./types";
 
 const cover1 = new URL("../assets/project/1.png", import.meta.url).href;
 const cover2 = new URL("../assets/project/2.png", import.meta.url).href;
@@ -28,21 +8,6 @@ const skillCoverBase = {
   react: new URL("../assets/svg/react.svg", import.meta.url).href,
   git: new URL("../assets/svg/git.svg", import.meta.url).href,
   vibeCoding: new URL("../assets/vibeCoding.png", import.meta.url).href,
-};
-
-export type ResumeData = {
-  aboutme: string[];
-  skillText: string;
-  skill: string[];
-  skillItem: SkillItem[];
-  experienceText: string;
-  experience: ExperienceItem[];
-  project: ProjectCard[];
-  contact: {
-    email: string;
-    phone: string;
-    github: string;
-  };
 };
 
 const data: ResumeData = {

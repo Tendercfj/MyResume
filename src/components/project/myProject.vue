@@ -22,7 +22,7 @@
                 v-else
                 class="w-full h-full grid place-items-center text-text-subtle text-sm"
               >
-                项目封面图（待补充）
+                {{ store.uiText.project.emptyCover }}
               </div>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
@@ -36,7 +36,7 @@
             </p>
 
             <div v-if="item.highlights?.length" class="mt-3">
-              <p class="m-0 text-sm font-black text-brand-primary uppercase tracking-wider">Highlights</p>
+              <p class="m-0 text-sm font-black text-brand-primary uppercase tracking-wider">{{ store.uiText.project.highlights }}</p>
               <ul class="mt-2 list-none p-0 text-[14px] leading-6 text-text-muted">
                 <li v-for="(h, hIdx) in item.highlights" :key="hIdx" class="relative pl-4 mb-1">
                   <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand-primary shadow-[0_0_5px_rgba(139,92,246,0.8)]"></span>
@@ -64,9 +64,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed } from "vue";
+import { useResumeStore } from "@/store/resumeStore";
 import commonTitle from "../title/commonTitle.vue";
-const title = ref("项目经历");
+const store = useResumeStore();
+const title = computed(() => store.uiText.project.title);
 type ProjectCard = {
   cover?: string;
   name: string;

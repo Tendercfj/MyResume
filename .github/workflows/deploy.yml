@@ -24,6 +24,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          GITHUB_ACTIONS: "true" # 这个会自动设置，显式写出来更清晰
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
